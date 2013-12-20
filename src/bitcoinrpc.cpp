@@ -86,8 +86,39 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
         nShift--;
     }
 
-    return dDiff;
+    return dDiff;GetStakeDifficulty
     */
+}
+
+double GetStakeDifficulty(const CBlockIndex* blockindex = NULL)
+{
+    // Floating point number that is a multiple of the minimum difficulty,
+    // minimum difficulty = 1.0.
+    if (blockindex == NULL)
+    {
+        if (pindexBest == NULL)
+	    return 1.0;
+        else
+            blockindex = GetLastBlockIndex(pindexBest, false);
+    }
+
+    int nShift = (blockindex->nBits >> 24) & 0xff;
+
+    double dDiff =
+        (double)0x0000ffff / (double)(blockindex->nBits & 0x00ffffff);
+
+    while (nShift < 29)
+    {
+        dDiff *= 256.0;
+        nShift++;
+    }
+    while (nShift > 29)
+    {
+        dDiff /= 256.0;
+        nShift--;
+    }
+
+    return dDiff;
 }
 
 
@@ -297,7 +328,7 @@ Value getdifficulty(const Array& params, bool fHelp)
 
     Object obj;
     obj.push_back(Pair("proof-of-work",        GetDifficulty()));
-    obj.push_back(Pair("proof-of-stake",       GetDifficulty(GetLastBlockIndex(pindexBest, true))));
+    obj.push_back(Pair("proof-of-stake",       GetStakeDifficulty(GetLastBlockIndex(pindexBest, true))));
     obj.push_back(Pair("search-interval",      (int)nLastCoinStakeSearchInterval));
     return obj;
 }
