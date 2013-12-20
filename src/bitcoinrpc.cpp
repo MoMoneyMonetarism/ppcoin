@@ -86,7 +86,7 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
         nShift--;
     }
 
-    return dDiff;GetStakeDifficulty
+    return dDiff;
     */
 }
 
