@@ -1,6 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Copyright (c) 2011-2013 The PPCoin developers
+// Copyright (c) 2011-2013 The MoMoneyMonetarism developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -58,10 +59,13 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
 {
     // Floating point number that is a multiple of the minimum difficulty,
     // minimum difficulty = 1.0.
+    /*
     if (blockindex == NULL)
     {
         if (pindexBest == NULL)
+	*/
             return 1.0;
+        /*
         else
             blockindex = GetLastBlockIndex(pindexBest, false);
     }
@@ -83,6 +87,7 @@ double GetDifficulty(const CBlockIndex* blockindex = NULL)
     }
 
     return dDiff;
+    */
 }
 
 
